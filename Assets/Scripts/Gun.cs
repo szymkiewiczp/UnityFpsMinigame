@@ -43,9 +43,14 @@ public class Gun : MonoBehaviour
         projectile.velocity = transform.TransformDirection(0f, 0f, projectileSpeed);
 
         if (ignoreCollisionParent != null)
+        {
+            Collider[] projectileColliders = projectile.GetComponentsInChildren<Collider>();
+
             foreach (Collider parentCollider in ignoreCollisionParent.GetComponentsInChildren<Collider>())
-                foreach(Collider projectileCollider in projectile.GetComponentsInChildren<Collider>())
+                foreach (Collider projectileCollider in projectileColliders)
                     Physics.IgnoreCollision(parentCollider, projectileCollider);
+        }
+            
 
         onShoot?.Invoke();
     }
